@@ -21,7 +21,7 @@ static void     ls_set_flgs(t_flg *flg, char *str)
                 flg->t = 1;   
 		}
 		else
-			error_flg(str[i]);
+			ls_flg_error(str[i]);
 	}
 }
 

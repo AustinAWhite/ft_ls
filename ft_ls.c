@@ -1,6 +1,6 @@
 #include "ft_ls.h"
 
-void	display_file(t_flg flg, t_item *files, int isdir)
+void	print_file(t_flg flg, t_item *files, int isdir)
 {
 	t_item	*cur;
 
@@ -8,7 +8,7 @@ void	display_file(t_flg flg, t_item *files, int isdir)
 	cur = ls_sort(cur, flg);
 	(flg.l == 1) ? ls_print_long(flg, cur, isdir) : ls_print_basic(flg, cur);
 	if (flg.rec == 1)
-		ls_recursion(flg, cur);
+		ls_rec_flg(flg, cur);
 }
 
 static int		handlelink(t_flg flg, t_list **cur, t_list **file)

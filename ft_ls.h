@@ -40,7 +40,7 @@ typedef struct		s_item
 	struct s_item	*next;
 }					t_item;
 
-typedef struct		s_size
+typedef struct		s_fmt_width
 {
 	int				total;
 	int				size;
@@ -48,10 +48,10 @@ typedef struct		s_size
 	int				users;
 	int				links;
 	int				dev_in_list;
-}					t_size;
+}					t_fmt_width;
 
-void				error_flg(char invalid);
-void				basicerror(char *name, char *error, int ex);
+void				ls_flg_error(char invalid);
+void				ls_error(char *name, char *error, int ex);
 
 void				ls_print_invalid(t_list *list);
 
@@ -63,12 +63,12 @@ void				print_int_formatted(int n, int maxsize);
 
 void				ls_get_flg(int nb, char **av, t_flg *flg, t_list **path);
 void				ft_ls(t_flg flg, t_list *path);
-void				display_file(t_flg flg, t_item *files, int isdir);
+void				print_file(t_flg flg, t_item *files, int isdir);
 
 void				ls_file(t_flg flg, t_list *path);
 void				ls_dir(t_flg flg, t_list *path);
 
-t_size				get_size(t_flg flg, t_item *files);
+t_fmt_width			get_widths(t_flg flg, t_item *files);
 
 int					get_dir_subfile(t_item **files, struct dirent *file, char *path, t_flg flg);
 void				get_file(t_item **files, char *name, char *path, t_flg flg);
@@ -77,7 +77,7 @@ void				ls_print_basic(t_flg flg, t_item *files);
 void				ls_print_long(t_flg flg, t_item *files, int isdir);
 void				ls_access(mode_t mode);
 
-void				ls_recursion(t_flg flg, t_item *files);
+void				ls_rec_flg(t_flg flg, t_item *files);
 
 t_item				*ls_sort(t_item *files, t_flg flg);
 void				ls_time_sort(t_item **files);

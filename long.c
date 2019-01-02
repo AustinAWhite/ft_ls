@@ -54,24 +54,24 @@ static void     ls_print_device_nums(char *path)
     ft_putchar(' ');
 }
 
-static void    ls_long_file(t_flg flg, t_item *file, t_size size)
+static void    ls_long_file(t_flg flg, t_item *file, t_fmt_width widths)
 {
     ls_access(file->st_mode);
-    print_int_formatted(file->st_nlink, size.links);
+    print_int_formatted(file->st_nlink, widths.links);
     if (getpwuid(file->st_uid))
-        print_str_formatted(getpwuid(file->st_uid)->pw_name, size.users);
+        print_str_formatted(getpwuid(file->st_uid)->pw_name, widths.users);
     else
-        print_str_formatted(ft_itoa(file->st_uid), size.users);
+        print_str_formatted(ft_itoa(file->st_uid), widths.users);
     if (getgrgid(file->st_gid))
-        print_str_formatted(getgrgid(file->st_gid)->gr_name, size.group);
+        print_str_formatted(getgrgid(file->st_gid)->gr_name, widths.group);
     else
-        print_str_formatted(ft_itoa(file->st_gid), size.group);
+        print_str_formatted(ft_itoa(file->st_gid), widths.group);
     if (S_ISCHR(file->st_mode) || S_ISBLK(file->st_mode))
 		ls_print_device_nums(file->path);
-    else if (!(S_ISCHR(file->st_mode) || S_ISBLK(file->st_mode)) && size.dev_in_list)
-        print_int_formatted(file->st_size, size.size + 8);
+    else if (!(S_ISCHR(file->st_mode) || S_ISBLK(file->st_mode)) && widths.dev_in_list)
+        print_int_formatted(file->st_size, widths.size + 8);
     else
-        print_int_formatted(file->st_size, size.size);
+        print_int_formatted(file->st_size, widths.size);
     display_date(file->date);
     ft_putstr(file->name);
     if (S_ISLNK(file->st_mode))
@@ -81,24 +81,23 @@ static void    ls_long_file(t_flg flg, t_item *file, t_size size)
 
 void	ls_print_long(t_flg flg, t_item *files, int isdir)
 {
-	t_item	*cur;
-	t_size	size;
-    int     test;
-    int     listsize;
+	t_item      *cur;
+	t_fmt_width widths;
+    int         listsize;
 
 	cur = files;
-	size = get_size(flg, files); 
+	widths = get_widths(flg, files); 
     listsize = list_size(cur);
 	if (isdir && (flg.a || (!flg.a && listsize > 2)))
 	{
 		ft_putstr("total ");
-		ft_putnbr(size.total);
+		ft_putnbr(widths.total);
 		ft_putchar('\n');
 	}
 	while (cur)
 	{
 		if (!(flg.a == 0 && cur->name[0] == '.'))
-			ls_long_file(flg, cur, size);
+			ls_long_file(flg, cur, widths);
 		cur = cur->next;
 	}
 }

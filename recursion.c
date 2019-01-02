@@ -1,6 +1,6 @@
 #include "ft_ls.h"
 
-void	do_recursion(t_flg flg, char *path)
+void	ls_recurse(t_flg flg, char *path)
 {
 	t_item	*files;
 	DIR		*dir;
@@ -15,26 +15,24 @@ void	do_recursion(t_flg flg, char *path)
 			;
 		closedir(dir);
 		if (files)
-			display_file(flg, files, 1);
+			print_file(flg, files, 1);
 		files = NULL;
 	}
 	else
-		basicerror("ft_ls: ", path, 0);
+		ls_error("ft_ls: ", path, 0);
 }
 
-void	ls_recursion(t_flg flg, t_item *files)
+void	ls_rec_flg(t_flg flg, t_item *files)
 {
     t_item	*cur;
 
 	cur = files;
 	while (cur)
 	{
-		if (cur->name && cur->path && \
-				S_ISDIR(cur->st_mode) && \
-				ft_strcmp(".", cur->name) && \
-				ft_strcmp("..", cur->name) && \
+		if (cur->name && cur->path && S_ISDIR(cur->st_mode) &&
+				ft_strcmp(".", cur->name) && ft_strcmp("..", cur->name) &&
 				!(flg.a == 0 && cur->name[0] == '.'))
-			do_recursion(flg, cur->path);
+			ls_recurse(flg, cur->path);
 		cur = cur->next;
 	}
 }

@@ -1,6 +1,6 @@
 #include "ft_ls.h"
 
-static void     ls_dir_aux(t_flg flg, t_item *dirlist, int display_dir_name)
+static void     ls_dir_subfile_iter(t_flg flg, t_item *dirs, int display_dir_name)
 {
     DIR     *iter;
     t_item  *files;
@@ -8,11 +8,11 @@ static void     ls_dir_aux(t_flg flg, t_item *dirlist, int display_dir_name)
 
     putline = 0;
     files = NULL;
-    while (dirlist)
+    while (dirs)
     {
-        iter = opendir(dirlist->name);
+        iter = opendir(dirs->name);
         while (get_dir_subfile(&files, readdir(iter), 
-                        ft_strjoin(dirlist->path, "/"), flg))
+                        ft_strjoin(dirs->path, "/"), flg))
             ;
         closedir(iter);
         if (files)
@@ -20,29 +20,29 @@ static void     ls_dir_aux(t_flg flg, t_item *dirlist, int display_dir_name)
             if (putline == 1)
                 ft_putchar('\n');
             if (display_dir_name)
-                ft_putendl(ft_strjoin(dirlist->name, ":"));
+                ft_putendl(ft_strjoin(dirs->name, ":"));
             putline = 1;
-            display_file(flg, files, 1);
+            print_file(flg, files, 1);
         }
         files = NULL;
-        dirlist = dirlist->next;
+        dirs = dirs->next;
     }
 }
 
 void            ls_dir(t_flg flg, t_list *path)
 {
     t_list	*cur;
-	t_item	*dirlist;
+	t_item	*dirs;
 
 	cur = path;
-	dirlist = NULL;
+	dirs = NULL;
 	while (cur)
 	{
-		get_file(&dirlist, cur->content, "", flg);
+		get_file(&dirs, cur->content, "", flg);
 		cur = cur->next;
 	}
-	dirlist = ls_sort(dirlist, flg);
-	ls_dir_aux(flg, dirlist, path->next != NULL);
+	dirs = ls_sort(dirs, flg);
+	ls_dir_subfile_iter(flg, dirs, path->next != NULL);
 }
 
 void            ls_file(t_flg flg, t_list *path)
@@ -59,5 +59,5 @@ void            ls_file(t_flg flg, t_list *path)
 		cur = cur->next;
 	}
 	if (files)
-		display_file(flg, files, 0);
+		print_file(flg, files, 0);
 }

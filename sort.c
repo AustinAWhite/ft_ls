@@ -1,6 +1,6 @@
 #include "ft_ls.h"
 
-static void	item_cpy(t_item **left, t_item *right)
+static void	copy_item(t_item **left, t_item *right)
 {
 	(*left)->name = right->name;
 	(*left)->path = right->path;
@@ -19,26 +19,26 @@ void	ls_swap_item(t_item **left, t_item **right)
 	t_item	tmp;
 
 	tmp = **left;
-	item_cpy(left, *right);
-	item_cpy(right, &tmp);
+	copy_item(left, *right);
+	copy_item(right, &tmp);
 }
 
 static void        ls_reverse(t_item **files)
 {
-    t_item	*p;
-	t_item	*q;
-	t_item	*r;
+    t_item	*forward;
+	t_item	*temp;
+	t_item	*reverse;
 
-	p = *files;
-	q = NULL;
-	while (p)
+	forward = *files;
+	temp = NULL;
+	while (forward)
 	{
-		r = q;
-		q = p;
-		p = p->next;
-		q->next = r;
+		reverse = temp;
+		temp = forward;
+		forward = forward->next;
+		temp->next = reverse;
 	}
-	*files = q;
+	*files = temp;
 }
 
 static void        ls_lexi_sort(t_item **files)

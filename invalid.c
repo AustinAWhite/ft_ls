@@ -48,7 +48,7 @@ void	ls_print_invalid(t_list *list)
     cur = ls_invalid_sort(cur);
     while (list)
     {
-        basicerror("ft_ls: ", list->content, 0);
+        ls_error("ft_ls: ", list->content, 0);
         list = list->next;
     }
 }

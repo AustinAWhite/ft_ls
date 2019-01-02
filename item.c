@@ -11,7 +11,7 @@ static t_item	*new_file(char *name, char *path, t_flg flg)
 	item->path = ft_strjoin(path, name);
 	if (lstat(item->path, &fstat) == -1)
 	{
-		basicerror("ft_ls: ", item->name, 1);
+		ls_error("ft_ls: ", item->name, 1);
 		return (NULL);
 	}
 	item->tv_nsec = fstat.st_mtimespec.tv_nsec;

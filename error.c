@@ -1,6 +1,6 @@
 #include "ft_ls.h"
 
-void	error_flg(char invalid)
+void	ls_flg_error(char invalid)
 {
 	ft_putstr_fd("ft_ls: illegal option -- ", 2);
 	ft_putchar_fd(invalid, 2);
@@ -8,7 +8,7 @@ void	error_flg(char invalid)
 	exit(EXIT_FAILURE);
 }
 
-void	basicerror(char *name, char *error, int ex)
+void	ls_error(char *name, char *error, int ex)
 {
 	ft_putstr_fd(name, 2);
 	perror(error);
