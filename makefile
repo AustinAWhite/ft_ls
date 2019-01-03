@@ -6,7 +6,7 @@ SRC		=	main.c util.c error.c ft_ls.c item.c print_basic.c recursion.c \
 
 OBJ		=	$(SRC:.c=.o)
 
-#CFLAGS	=	-Wall -Wextra -Werror
+CFLAGS	=	-Wall -Wextra -Werror
 
 $(NAME): $(OBJ)
 	#@make -C libft/

@@ -11,7 +11,7 @@ void	print_file(t_flg flg, t_item *files, int isdir)
 		ls_rec_flg(flg, cur);
 }
 
-static int		handlelink(t_flg flg, t_list **cur, t_list **file)
+static int		handlelink(t_list **cur, t_list **file)
 {
 	struct stat fstat;
 
@@ -25,7 +25,7 @@ static int		handlelink(t_flg flg, t_list **cur, t_list **file)
 	return (0);
 }
 
-static void	ls_walk_paths(t_flg flg, t_list **path, 
+static void	ls_walk_paths(t_list **path, 
 							t_list **invalid, t_list **file, t_list **directory)
 {
 	t_list	*cur;
@@ -34,7 +34,7 @@ static void	ls_walk_paths(t_flg flg, t_list **path,
 	cur = *path;
 	while (cur)
 	{
-		if (handlelink(flg, &cur, file))
+		if (handlelink(&cur, file))
 			continue;
 		if ((iter = opendir(cur->content)) == NULL)
 			errno != ENOTDIR ? 
@@ -58,7 +58,7 @@ void    ft_ls(t_flg flg, t_list *path)
 	invalid = NULL;
 	file = NULL;
 	directory = NULL;
-	ls_walk_paths(flg, &path, &invalid, &file, &directory);
+	ls_walk_paths(&path, &invalid, &file, &directory);
 	if (invalid)
 		ls_print_invalid(invalid);
 	if (file)

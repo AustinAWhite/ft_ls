@@ -1,6 +1,6 @@
 #include "ft_ls.h"
 
-static t_item	*new_file(char *name, char *path, t_flg flg)
+static t_item	*new_file(char *name, char *path)
 {
 	t_item			*item;
 	struct stat		fstat;
@@ -26,7 +26,7 @@ static t_item	*new_file(char *name, char *path, t_flg flg)
 	return (item);
 }
 
-int		get_dir_subfile(t_item **files, struct dirent *file, char *path, t_flg flg)
+int		get_dir_subfile(t_item **files, struct dirent *file, char *path)
 {
 	t_item	*list;
 
@@ -37,14 +37,14 @@ int		get_dir_subfile(t_item **files, struct dirent *file, char *path, t_flg flg)
 	{
 		while (list->next)
 			list = list->next;
-		list->next = new_file(file->d_name, path, flg);
+		list->next = new_file(file->d_name, path);
 	}
 	else
-		*files = new_file(file->d_name, path, flg);
+		*files = new_file(file->d_name, path);
 	return (1);
 }
 
-void	get_file(t_item **files, char *name, char *path, t_flg flg)
+void	get_file(t_item **files, char *name, char *path)
 {
 	t_item *list;
 
@@ -53,8 +53,8 @@ void	get_file(t_item **files, char *name, char *path, t_flg flg)
 	{
 		while (list->next)
 			list = list->next;
-		list->next = new_file(name, path, flg);
+		list->next = new_file(name, path);
 	}
 	else
-		*files = new_file(name, path, flg);
+		*files = new_file(name, path);
 }

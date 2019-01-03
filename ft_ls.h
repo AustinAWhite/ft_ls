@@ -70,8 +70,8 @@ void				ls_dir(t_flg flg, t_list *path);
 
 t_fmt_width			get_widths(t_flg flg, t_item *files);
 
-int					get_dir_subfile(t_item **files, struct dirent *file, char *path, t_flg flg);
-void				get_file(t_item **files, char *name, char *path, t_flg flg);
+int					get_dir_subfile(t_item **files, struct dirent *file, char *path);
+void				get_file(t_item **files, char *name, char *path);
 
 void				ls_print_basic(t_flg flg, t_item *files);
 void				ls_print_long(t_flg flg, t_item *files, int isdir);

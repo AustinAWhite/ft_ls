@@ -11,7 +11,7 @@ static void     get_grp_usr_width(t_fmt_width *widths, t_item *cur)
     }
     else
     {
-        if ((temp = ft_strlen(ft_itoa(cur->st_uid)) > widths->users))
+        if ((temp = (int)ft_strlen(ft_itoa(cur->st_uid)) > widths->users))
             widths->users = temp;
     }
     if (getgrgid(cur->st_gid))
@@ -21,7 +21,7 @@ static void     get_grp_usr_width(t_fmt_width *widths, t_item *cur)
     }
     else
     {
-        if ((temp = ft_strlen(ft_itoa(cur->st_gid)) > widths->group))
+        if ((temp = (int)ft_strlen(ft_itoa(cur->st_gid)) > widths->group))
             widths->group = temp;
     }
 }

@@ -54,7 +54,7 @@ static void     ls_print_device_nums(char *path)
     ft_putchar(' ');
 }
 
-static void    ls_long_file(t_flg flg, t_item *file, t_fmt_width widths)
+static void    ls_long_file(t_item *file, t_fmt_width widths)
 {
     ls_access(file->st_mode);
     print_int_formatted(file->st_nlink, widths.links);
@@ -97,7 +97,7 @@ void	ls_print_long(t_flg flg, t_item *files, int isdir)
 	while (cur)
 	{
 		if (!(flg.a == 0 && cur->name[0] == '.'))
-			ls_long_file(flg, cur, widths);
+			ls_long_file(cur, widths);
 		cur = cur->next;
 	}
 }

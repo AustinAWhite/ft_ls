@@ -12,7 +12,7 @@ static void     ls_dir_subfile_iter(t_flg flg, t_item *dirs, int display_dir_nam
     {
         iter = opendir(dirs->name);
         while (get_dir_subfile(&files, readdir(iter), 
-                        ft_strjoin(dirs->path, "/"), flg))
+                        ft_strjoin(dirs->path, "/")))
             ;
         closedir(iter);
         if (files)
@@ -38,7 +38,7 @@ void            ls_dir(t_flg flg, t_list *path)
 	dirs = NULL;
 	while (cur)
 	{
-		get_file(&dirs, cur->content, "", flg);
+		get_file(&dirs, cur->content, "");
 		cur = cur->next;
 	}
 	dirs = ls_sort(dirs, flg);
@@ -55,7 +55,7 @@ void            ls_file(t_flg flg, t_list *path)
 	flg.a = 1;
 	while (cur)
 	{
-		get_file(&files, cur->content, "", flg);
+		get_file(&files, cur->content, "");
 		cur = cur->next;
 	}
 	if (files)

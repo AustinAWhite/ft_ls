@@ -1,20 +1,5 @@
 #include "ft_ls.h"
 
-static int     invalid_len(t_list *list)
-{
-    int len;
-    t_list *cur;
-
-    len = 0;
-    cur = list;
-    while (cur)
-    {
-        len++;
-        cur = cur->next;
-    }
-    return (len);
-}
-
 static t_list  *ls_invalid_sort(t_list *list)
 {
     t_list  *left;

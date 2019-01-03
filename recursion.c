@@ -11,7 +11,7 @@ void	ls_recurse(t_flg flg, char *path)
 	ft_putstr(":\n");
 	if ((dir = opendir(path)) != NULL)
 	{
-		while (get_dir_subfile(&files, readdir(dir), ft_strjoin(path, "/"), flg))
+		while (get_dir_subfile(&files, readdir(dir), ft_strjoin(path, "/")))
 			;
 		closedir(dir);
 		if (files)
