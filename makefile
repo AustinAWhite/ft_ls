@@ -1,24 +1,35 @@
-NAME	=	ft_ls
+NAME	=	myls
+CFLAGS	=	-Wall -Werror -Wextra
+FILES	=	main error format get_access item print_basic recursion \
+			time_sort file_dir myls invalid long parse_input print_format \
+			sort util
+SRC		=	$(FILES:%=src/%.c)
+OBJ		=	$(SRC:%.c=%.o)
 
-SRC		=	main.c util.c error.c ft_ls.c item.c print_basic.c recursion.c \
-			sort.c format.c print_format.c invalid.c parse_input.c \
-			file_dir.c time_sort.c long.c get_access.c
+all : $(NAME)
 
-OBJ		=	$(SRC:.c=.o)
+$(NAME) : $(OBJ)
+	@make -C libft/
+	@echo "Compiling $(NAME)..."
+	@gcc $(OBJ) -o $(NAME) -L libft/ -lft
 
-CFLAGS	=	-Wall -Wextra -Werror
+debug:
+	@echo "Compiling $(NAME) for lldb use..."
+	@gcc $(SRC) libft/*.c -o $(NAME) -g
 
-$(NAME): $(OBJ)
-	#@make -C libft/
-	@gcc $(OBJ) -o $(NAME) -L libft/ -lft -fsanitize=address -g
-
-all: $(NAME)
+cleandebug:
+	@echo "Removing debug files..."
+	@/bin/rm -rf $(NAME).dSYM
 
 clean:
+	@echo "Removing Object Files..."
+	@/bin/rm -f $(OBJ)
 	@make -C libft/ clean
-	@rm -rf $(OBJ)
 
-fclean: clean
-	@rm -rf $(NAME) $(OBJ)
+fclean: cleandebug clean
+	@echo "Removing $(NAME)..."
+	@make -C libft/ fclean
+	@/bin/rm -f $(NAME)
 
-re: fclean $(NAME)
+re: fclean all
+
