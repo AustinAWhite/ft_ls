@@ -1,4 +1,4 @@
-# myls
+# ls 
 My implementation of the ls UNIX command.
 Functionality and usage mirrors that of Apple's darwin UNIX.
 
